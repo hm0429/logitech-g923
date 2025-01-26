@@ -1,4 +1,4 @@
-# API - Logitech G29 Racing Wheel for Node
+# API - Logitech G923 Racing Wheel for Node
 
 * [connect](#connect)
   * [options](#options)
@@ -51,12 +51,16 @@ The following options can be set when using `connect(options, callback)`.
 |autocenter|true|boolean or array|true, false, [0.3, 0.7]|
 |debug|false|boolean|true, false|
 |range|900|number|270, 900|
+|targetDevice|'g923'|string|'g923', 'g29'|
+
 
 `autocenter` can be fine tuned if you provide a two element array. The first value (0 - 1) controls the general strength of the auto-centering. The second value (0 - 1) controls how quickly that strength ramps up as you turn the wheel more.
 
 `debug` enables a lot of console logging.
 
 `range` is normally number from 270 to 900 although you can go as low as 40. Range sets the degrees of turn it takes before the wheel reports a maximum value for that direction. For example, if the range is 270, it won't take much turning before you receive a min or max return value. Even if you can physically turn the wheel more in the same direction, the return value will be the same.
+
+`targetDevice` is either `'g923'` or `'g29'`.
 
 ## events
 
