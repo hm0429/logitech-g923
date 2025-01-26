@@ -5,6 +5,7 @@
 //----------------
 const color   = require('./color.js')
 const dataMap = require('./data-map.js')
+const supportedDevices = require('./supported-devices.js')
 
 //----------
 // Includes
@@ -20,7 +21,8 @@ const eventEmitter = new events.EventEmitter()
 const options = {
     'autocenter': true,
     'debug': false,
-    'range': 900
+    'range': 900,
+    'targetDevice': supportedDevices.g923
 }
 const platform = os.platform()
 
@@ -166,11 +168,11 @@ function findWheel() {
     for (let i in devices) {
         // devices[i].vendorId seems to be the only completely reliable property on each OS.
         // devices[i].productId can not be trusted and can sometimes be wildly different.
-        // devices[i].product should be set to 'G923 Racing Wheel for PlayStation and PC'.
+        // devices[i].product should be set to options.targetDevice.product.
         // devices[i].interface should be 0 on Windows and Linux.
         // devices[i].usagePage should be 1 on Windows and Mac.
-        if (devices[i].vendorId === 1133 &&
-            (devices[i].productId === 49766 || devices[i].product === 'G923 Racing Wheel for PlayStation and PC') &&
+        if (devices[i].vendorId === options.targetDevice.vendorId &&
+            (devices[i].productId === options.targetDevice.productId || devices[i].product === options.targetDevice.product) &&
             (devices[i].interface === 0 || devices[i].usagePage === 1)) {
             devicePath = devices[i].path
             break
@@ -546,3 +548,4 @@ module.exports.forceOff = forceOff
 // advanced
 module.exports.relay = relay
 module.exports.relayOS = relayOS
+module.exports.supportedDevices = supportedDevices
