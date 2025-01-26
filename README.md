@@ -52,7 +52,7 @@ By default, it connects to the G923. To connect to the G29, set the target devic
 const g = require('logitech-g923')
 
 const options = {
-    targetDevice: g.supportedDevices.g29
+    targetDevice: 'g29'
 }
 
 g.connect(options, function(err) {
