@@ -27,7 +27,6 @@ process.on('SIGINT', function() {
 //-----------
 const options = {
     debug: true,
-    targetDevice: g.supportedDevices.g923
 }
 
 //---------
