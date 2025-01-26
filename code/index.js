@@ -22,7 +22,7 @@ const options = {
     'autocenter': true,
     'debug': false,
     'range': 900,
-    'targetDevice': supportedDevices.g923
+    'targetDevice': 'g923'
 }
 const platform = os.platform()
 
@@ -157,22 +157,34 @@ function disconnect() {
     device.close()
 } // disconnect
 
+function getTargetDevice() {
+    if (options.targetDevice === 'g923') {
+        return supportedDevices.g923
+    } else if (options.targetDevice === 'g29') {
+        return supportedDevices.g29
+    } else {
+        console.log(color.red(`Error. targetDevice must be 'g923' or 'g29'.`))
+        process.exit()
+    }
+}
+
 function findWheel() {
     /*
     Return the USB location of a Logitech wheel.
     @return  {String}  devicePath  USB path like: USB_046d_c294_fa120000
     */
+    const targetDevice = getTargetDevice()
     const devices = hid.devices()
     let devicePath = ''
 
     for (let i in devices) {
         // devices[i].vendorId seems to be the only completely reliable property on each OS.
         // devices[i].productId can not be trusted and can sometimes be wildly different.
-        // devices[i].product should be set to options.targetDevice.product.
+        // devices[i].product should be set to targetDevice.product.
         // devices[i].interface should be 0 on Windows and Linux.
         // devices[i].usagePage should be 1 on Windows and Mac.
-        if (devices[i].vendorId === options.targetDevice.vendorId &&
-            (devices[i].productId === options.targetDevice.productId || devices[i].product === options.targetDevice.product) &&
+        if (devices[i].vendorId === targetDevice.vendorId &&
+            (devices[i].productId === targetDevice.productId || devices[i].product === targetDevice.product) &&
             (devices[i].interface === 0 || devices[i].usagePage === 1)) {
             devicePath = devices[i].path
             break
@@ -181,11 +193,11 @@ function findWheel() {
 
     if (devicePath === '') {
         if (options.debug) {
-            console.log(color.yellow(`findWheel -> Oops, could not find a ${options.targetDevice.product}. Is it plugged in?\n`))
+            console.log(color.yellow(`findWheel -> Oops, could not find a ${targetDevice.product}. Is it plugged in?\n`))
             process.exit()
         }
     } else if (options.debug) {
-        console.log(color.cyan(`findWheel -> Found ${options.targetDevice.product} at `) + devicePath)
+        console.log(color.cyan(`findWheel -> Found ${targetDevice.product} at `) + devicePath)
     }
 
     return devicePath
@@ -548,4 +560,3 @@ module.exports.forceOff = forceOff
 // advanced
 module.exports.relay = relay
 module.exports.relayOS = relayOS
-module.exports.supportedDevices = supportedDevices
