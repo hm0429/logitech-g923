@@ -1,8 +1,8 @@
 {
-  "name": "logitech-g29",
-  "description": "Logitech G29 Racing Wheel for Node",
-  "version": "3.0.0",
-  "author": "Kai Nightmode",
+  "name": "logitech-g923",
+  "description": "Logitech G923/G29 Racing Wheel for Node",
+  "version": "0.0.1",
+  "author": "Hideyoshi Moriya",
   "dependencies": {
     "node-hid": "3.1.2"
   },
@@ -12,6 +12,7 @@
   "keywords": [
     "logitech",
     "g29",
+    "g923",
     "racing wheel",
     "hid"
   ],
@@ -19,7 +20,7 @@
   "main": "./code/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nightmode/logitech-g29.git"
+    "url": "git://github.com/hm0429/logitech-g923.git"
   },
   "scripts": {
     "test": "node test/test.js"
