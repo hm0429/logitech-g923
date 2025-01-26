@@ -93,7 +93,7 @@ function clone(obj) {
 
 function connect(odo, callback) { // Constable Odo takes many forms.
     /*
-    Connect to a Logitech G29 wheel.
+    Connect to a Logitech wheel.
     @param   {Object, Function}  odo       Options object or callback function.
     @param   {Function}          callback  Callback function.
     */
@@ -132,7 +132,7 @@ function connect(odo, callback) { // Constable Odo takes many forms.
                 }
 
                 try {
-                    // G29 Wheel init from - https://github.com/torvalds/linux/blob/master/drivers/hid/hid-lg4ff.c
+                    // G923/G29 Wheel init from - https://github.com/torvalds/linux/blob/master/drivers/hid/hid-lg4ff.c
                     relayOS([0xf8, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00])
                     relayOS([0xf8, 0x09, 0x05, 0x01, 0x01, 0x00, 0x00])
 
@@ -159,7 +159,7 @@ function disconnect() {
 
 function findWheel() {
     /*
-    Return the USB location of a Logitech G29 wheel.
+    Return the USB location of a Logitech wheel.
     @return  {String}  devicePath  USB path like: USB_046d_c294_fa120000
     */
     const devices = hid.devices()
@@ -181,11 +181,11 @@ function findWheel() {
 
     if (devicePath === '') {
         if (options.debug) {
-            console.log(color.yellow('findWheel -> Oops, could not find a G29 Wheel. Is it plugged in?\n'))
+            console.log(color.yellow(`findWheel -> Oops, could not find a ${options.targetDevice.product}. Is it plugged in?\n`))
             process.exit()
         }
     } else if (options.debug) {
-        console.log(color.cyan('findWheel -> Found G29 Wheel at ') + devicePath)
+        console.log(color.cyan(`findWheel -> Found ${options.targetDevice.product} at `) + devicePath)
     }
 
     return devicePath
