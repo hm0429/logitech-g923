@@ -8,7 +8,7 @@ const g     = require('../code/index.js')
 // Instructions
 //--------------
 console.log()
-console.log(color.cyan('Play with your G29 to make sure each feature works perfectly.'))
+console.log(color.cyan('Play with your G923/G29 to make sure each feature works perfectly.'))
 console.log()
 console.log(color.cyan('Setting up wheel.'))
 console.log(color.cyan('One moment please.'))
@@ -26,7 +26,8 @@ process.on('SIGINT', function() {
 // Variables
 //-----------
 const options = {
-    debug: true
+    debug: true,
+    targetDevice: g.supportedDevices.g923
 }
 
 //---------
