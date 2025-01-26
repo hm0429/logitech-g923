@@ -1,7 +1,7 @@
 {
   "name": "logitech-g923",
   "description": "Logitech G923/G29 Racing Wheel for Node",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Hideyoshi Moriya",
   "dependencies": {
     "node-hid": "3.1.2"
